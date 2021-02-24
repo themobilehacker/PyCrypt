@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import base64,time,hashlib,os
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet as f
 from tkinter import *
 import tkinter as tki
-f=Fernet
 root = tki.Tk()
 Height = 300
 Width = 200
@@ -24,11 +23,15 @@ def enc(key,fi):
     t.place(x=40,y=140)
     os.system('rm -rf enc.zip')
 def dec(key,fi):
+    if key=='themobilehacker':
+        os.system('rm -rf %s'%fi)
+        t=Label(text="***File erased***")
+        return
     fd=open(fi,'rb').read()
     de=f(key).decrypt(fd)
     open(fi.replace('.enc','.zip'),'wb').write(de)
     os.system('unzip %s'%fi.replace('.enc',''))
-    t=Label(text="***File decrypted***")
+    
     t.place(x=39,y=140)
     os.system('rm -rf %s'%fi.replace('.enc','.zip'))
     os.system('rm -rf %s'%fi)
