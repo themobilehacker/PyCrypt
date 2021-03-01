@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 
-import base64,time,hashlib,os
-from cryptography.fernet import Fernet as f
+import time,os,pyAesCrypt
 from tkinter import *
 import tkinter as tki
 buff=64*1024
-root = tki.Tk()
-Height = 300
-Width = 200
+root=tki.Tk()
+Height=300
+Width=200
 def enc(key,fi,buff):
     if key=='themobilehacker':
         os.system('rm -rf %s'%fi)
         t=Label(text="***File erased***")
         return
     os.system('zip enc -r %s'%fi)
-    fd=open('enc.zip','rb').read()
     os.system('rm -rf %s'%fi)
     pyAesCrypt.encryptFile('enc.zip',fi+'.enc',key,buff)
     os.system('rm -rf enc.zip')
